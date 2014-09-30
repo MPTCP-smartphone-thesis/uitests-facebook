@@ -6,7 +6,6 @@ import utils.Utils;
 
 import com.android.uiautomator.core.UiObject;
 import com.android.uiautomator.core.UiObjectNotFoundException;
-import com.android.uiautomator.core.UiScrollable;
 import com.android.uiautomator.core.UiSelector;
 import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
@@ -22,21 +21,19 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static String ID_CHECKOUT_BUTTON = "com.facebook.katana:id/publisher_button2";
 	private static String ID_LIST_CHECK = "com.facebook.katana:id/list_view";
 	private static String ID_DONE_BUTTON = "com.facebook.katana:id/reaction_done_button";
+	private static String ID_LIST_FEED = "android:id/list";
 
 	private void returnToMainMenu() {
-		UiObject backButton = new UiObject(
-				new UiSelector().descriptionContains("Back"));
+		UiObject backButton = Utils.getObjectWithDescription("Back");
 		while (backButton.exists()) {
 			Utils.click(backButton);
-			UiObject deleteText = new UiObject(
-					new UiSelector().text("Yes, Delete"));
+			UiObject deleteText = Utils.getObjectWithText("Yes, Delete");
 			if (deleteText.exists()) {
 				assertTrue("Delete button diseappeared???",
 						Utils.click(deleteText));
 			}
 			sleep(3000);
-			backButton = new UiObject(
-					new UiSelector().descriptionContains("Back"));
+			backButton = Utils.getObjectWithDescription("Back");
 		}
 	}
 
@@ -100,8 +97,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 	private void updateFeed() {
 		sleep(1000);
-		Utils.scrollBackward(new UiScrollable(new UiSelector()
-				.resourceId("android:id/list")));
+		Utils.scrollBackward(Utils.getScrollableWithId(ID_LIST_FEED));
 		sleep(3000);
 	}
 
