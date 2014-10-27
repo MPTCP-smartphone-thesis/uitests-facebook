@@ -107,12 +107,17 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		sleep(2000);
 
 		returnToMainMenu();
-		while (true) {
+
+		Utils.launchTcpdump("facebook", 900);
+
+		for (int i = 0; i < 10; i++) {
 			updateFeed();
 			textStatus();
 			photoStatus();
 			checkoutStatus();
 		}
+
+		Utils.killTcpdump();
 
 	}
 
