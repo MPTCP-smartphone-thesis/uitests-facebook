@@ -108,7 +108,10 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 		returnToMainMenu();
 
-		Utils.launchTcpdump("facebook");
+		String iface = getParams().getString("iface");
+		if (iface != null) {
+			Utils.launchTcpdump("facebook", iface);
+		}
 
 		for (int i = 0; i < 10; i++) {
 			updateFeed();
@@ -117,7 +120,9 @@ public class LaunchSettings extends UiAutomatorTestCase {
 			checkoutStatus();
 		}
 
-		Utils.killTcpdump();
+		if (iface != null) {
+			Utils.killTcpdump();
+		}
 
 	}
 
