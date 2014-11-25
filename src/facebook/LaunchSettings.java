@@ -24,6 +24,8 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_LIST_FEED = "android:id/list";
 	private static final String ID_PRIVACY_BUTTON = "com.facebook.katana:id/public_privacy_button";
 
+	private static final int NB_TIMES = 2;
+
 	private void returnToMainMenu() {
 		UiObject backButton = Utils.getObjectWithDescription("Back");
 		while (backButton.exists()) {
@@ -138,7 +140,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 			Utils.launchTcpdump("facebook", iface);
 		}
 
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < NB_TIMES; i++) {
 			updateFeed();
 			textStatus();
 			photoStatus();
