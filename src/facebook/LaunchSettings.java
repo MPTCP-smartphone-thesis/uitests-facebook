@@ -11,17 +11,18 @@ import com.android.uiautomator.testrunner.UiAutomatorTestCase;
 
 public class LaunchSettings extends UiAutomatorTestCase {
 
-	private static String ID_STATUS_BUTTON = "com.facebook.katana:id/publisher_button0";
-	private static String ID_STATUS_TEXT = "com.facebook.katana:id/status_text";
-	private static String ID_POST = "com.facebook.katana:id/primary_named_button";
-	private static String ID_PHOTO_BUTTON = "com.facebook.katana:id/publisher_button1";
-	private static String ID_TAKE_PHOTO = "com.facebook.katana:id/image_camera_icon";
-	private static String ID_CAPTURE_PHOTO = "com.android.camera2:id/shutter_button";
-	private static String ID_ACCEPT_PHOTO = "com.android.camera2:id/done_button";
-	private static String ID_CHECKOUT_BUTTON = "com.facebook.katana:id/publisher_button2";
-	private static String ID_LIST_CHECK = "com.facebook.katana:id/list_view";
-	private static String ID_DONE_BUTTON = "com.facebook.katana:id/reaction_done_button";
-	private static String ID_LIST_FEED = "android:id/list";
+	private static final String ID_STATUS_BUTTON = "com.facebook.katana:id/publisher_button0";
+	private static final String ID_STATUS_TEXT = "com.facebook.katana:id/status_text";
+	private static final String ID_POST = "com.facebook.katana:id/primary_named_button";
+	private static final String ID_PHOTO_BUTTON = "com.facebook.katana:id/publisher_button1";
+	private static final String ID_TAKE_PHOTO = "com.facebook.katana:id/image_camera_icon";
+	private static final String ID_CAPTURE_PHOTO = "com.android.camera2:id/shutter_button";
+	private static final String ID_ACCEPT_PHOTO = "com.android.camera2:id/done_button";
+	private static final String ID_CHECKOUT_BUTTON = "com.facebook.katana:id/publisher_button2";
+	private static final String ID_LIST_CHECK = "com.facebook.katana:id/list_view";
+	private static final String ID_DONE_BUTTON = "com.facebook.katana:id/reaction_done_button";
+	private static final String ID_LIST_FEED = "android:id/list";
+	private static final String ID_PRIVACY_BUTTON = "com.facebook.katana:id/public_privacy_button";
 
 	private void returnToMainMenu() {
 		UiObject backButton = Utils.getObjectWithDescription("Back");
@@ -37,14 +38,33 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		}
 	}
 
+	/**
+	 * Remove privacy warning if any
+	 */
+	private void removePrivacyWarning() {
+		try {
+			UiObject privacy = Utils.getObjectWithId(ID_PRIVACY_BUTTON);
+			if (privacy.isEnabled()) {
+				Utils.click(privacy);
+				sleep(1000);
+			}
+		} catch (UiObjectNotFoundException e) {
+			// Button is not there, no problem
+		}
+	}
+
 	private void textStatus() {
+		removePrivacyWarning();
 		assertTrue("Cannot publish new status", Utils.click(ID_STATUS_BUTTON));
 
+		sleep(1000);
+		removePrivacyWarning();
 		Date now = new Date();
 		assertTrue("Cannot write my status",
 				Utils.setText(ID_STATUS_TEXT,
 						"This is a test status " + now.getTime()));
 
+		removePrivacyWarning();
 		assertTrue("Cannot post my status", Utils.click(ID_POST));
 	}
 
@@ -52,6 +72,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		sleep(1000);
 		assertTrue("Cannot publish new photo", Utils.click(ID_PHOTO_BUTTON));
 		sleep(2000);
+		removePrivacyWarning();
 		assertTrue("Cannot take new photo", Utils.click(ID_TAKE_PHOTO));
 		sleep(2000);
 		assertTrue("Cannot capture photo", Utils.click(ID_CAPTURE_PHOTO));
