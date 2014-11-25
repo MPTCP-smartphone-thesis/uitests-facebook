@@ -108,7 +108,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 		returnToMainMenu();
 
-		Utils.launchTcpdump("facebook", 900);
+		Utils.launchTcpdump("facebook");
 
 		for (int i = 0; i < 10; i++) {
 			updateFeed();
