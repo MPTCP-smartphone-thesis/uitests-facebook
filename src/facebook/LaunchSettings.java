@@ -75,10 +75,13 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		removePrivacyWarning();
 		assertTrue("Cannot take new photo", Utils.click(ID_TAKE_PHOTO));
 		sleep(2000);
+		removePrivacyWarning();
 		assertTrue("Cannot capture photo", Utils.click(ID_CAPTURE_PHOTO));
 		sleep(4000);
+		removePrivacyWarning();
 		assertTrue("Cannot accept the photo", Utils.click(ID_ACCEPT_PHOTO));
 		sleep(3000);
+		removePrivacyWarning();
 		Date now = new Date();
 		assertTrue(
 				"Cannot write my status",
@@ -104,6 +107,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 						new UiSelector().className("android.view.View")
 								.instance(3)))));
 		sleep(1000);
+		removePrivacyWarning();
 		assertTrue("Cannot post my status", Utils.click(ID_POST));
 
 		Date now = new Date();
