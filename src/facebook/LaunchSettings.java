@@ -23,6 +23,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_DONE_BUTTON = "com.facebook.katana:id/reaction_done_button";
 	private static final String ID_LIST_FEED = "android:id/list";
 	private static final String ID_PRIVACY_BUTTON = "com.facebook.katana:id/public_privacy_button";
+	private static final String ID_LOCATION_WARNING = "android:id/button2";
 
 	private static final int NB_TIMES = 2;
 
@@ -70,14 +71,36 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		assertTrue("Cannot post my status", Utils.click(ID_POST));
 	}
 
+	/**
+	 * Remove location warning: Remember photo locations?
+	 *
+	 * Tag your photos and videos with the locations where they are taken.
+	 *
+	 * Other apps can access this information along with your saved images.
+	 */
+	private void removeLocationWarning() {
+		try {
+			UiObject location = Utils.getObjectWithId(ID_LOCATION_WARNING);
+			if (location.isEnabled() && location.getText().equals("No thanks")) {
+				Utils.click(location);
+				sleep(1000);
+			}
+		} catch (UiObjectNotFoundException e) {
+			// Button is not there, no problem
+		}
+
+	}
+
 	private void photoStatus() {
 		sleep(1000);
 		assertTrue("Cannot publish new photo", Utils.click(ID_PHOTO_BUTTON));
 		sleep(2000);
 		removePrivacyWarning();
+		removeLocationWarning();
 		assertTrue("Cannot take new photo", Utils.click(ID_TAKE_PHOTO));
 		sleep(2000);
 		removePrivacyWarning();
+		removeLocationWarning();
 		assertTrue("Cannot capture photo", Utils.click(ID_CAPTURE_PHOTO));
 		sleep(4000);
 		removePrivacyWarning();
