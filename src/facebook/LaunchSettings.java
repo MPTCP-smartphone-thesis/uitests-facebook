@@ -158,20 +158,11 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 		returnToMainMenu();
 
-		String iface = getParams().getString("iface");
-		if (iface != null) {
-			Utils.launchTcpdump("facebook", iface);
-		}
-
 		for (int i = 0; i < NB_TIMES; i++) {
 			updateFeed();
 			textStatus();
 			photoStatus();
 			checkoutStatus();
-		}
-
-		if (iface != null) {
-			Utils.killTcpdump();
 		}
 
 	}
