@@ -24,7 +24,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_LIST_FEED = "android:id/list";
 	private static final String ID_PRIVACY_BUTTON = "com.facebook.katana:id/public_privacy_button";
 
-	private static final int NB_TIMES = 2;
+	private static final int NB_TIMES = 3;
 
 	private void returnToMainMenu() {
 		UiObject backButton = Utils.getObjectWithDescription("Back");
