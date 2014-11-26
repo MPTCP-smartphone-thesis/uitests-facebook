@@ -18,6 +18,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_TAKE_PHOTO = "com.facebook.katana:id/image_camera_icon";
 	private static final String ID_CAPTURE_PHOTO = "com.android.camera2:id/shutter_button";
 	private static final String ID_ACCEPT_PHOTO = "com.android.camera2:id/done_button";
+	private static final String ID_ACCEPT_PHOTO_2 = "com.android.camera2:id/btn_done";
 	private static final String ID_CHECKOUT_BUTTON = "com.facebook.katana:id/publisher_button2";
 	private static final String ID_LIST_CHECK = "com.facebook.katana:id/list_view";
 	private static final String ID_DONE_BUTTON = "com.facebook.katana:id/reaction_done_button";
@@ -104,7 +105,8 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		assertTrue("Cannot capture photo", Utils.click(ID_CAPTURE_PHOTO));
 		sleep(4000);
 		removePrivacyWarning();
-		assertTrue("Cannot accept the photo", Utils.click(ID_ACCEPT_PHOTO));
+		if (!Utils.click(ID_ACCEPT_PHOTO)) // 2 possible buttons...
+			assertTrue("Cannot accept the photo", ID_ACCEPT_PHOTO_2);
 		sleep(3000);
 		removePrivacyWarning();
 		Date now = new Date();
