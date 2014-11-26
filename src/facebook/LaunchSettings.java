@@ -106,7 +106,8 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		sleep(4000);
 		removePrivacyWarning();
 		if (!Utils.click(ID_ACCEPT_PHOTO)) // 2 possible buttons...
-			assertTrue("Cannot accept the photo", ID_ACCEPT_PHOTO_2);
+			assertTrue("Cannot accept the photo",
+					Utils.click(ID_ACCEPT_PHOTO_2));
 		sleep(3000);
 		removePrivacyWarning();
 		Date now = new Date();
