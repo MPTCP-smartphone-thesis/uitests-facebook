@@ -25,6 +25,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_LIST_FEED = "android:id/list";
 	private static final String ID_PRIVACY_BUTTON = "com.facebook.katana:id/public_privacy_button";
 	private static final String ID_LOCATION_WARNING = "android:id/button2";
+	private static final String ID_MODIFY_SETTINGS = "com.facebook.katana:id/modify_settings_dont_ask_again";
 
 	private static final int NB_TIMES = 3;
 
@@ -89,7 +90,6 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		} catch (UiObjectNotFoundException e) {
 			// Button is not there, no problem
 		}
-
 	}
 
 	private void photoStatus() {
@@ -118,11 +118,30 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		assertTrue("Cannot post my status", Utils.click(ID_POST));
 	}
 
+	/**
+	 * We can have a warning: Turn On Location
+	 */
+	private void removeGPSWarning() {
+		try {
+			UiObject location = Utils.getObjectWithId(ID_LOCATION_WARNING);
+			if (location.isEnabled() && location.getText().equals("Skip")) {
+				UiObject checkbox = Utils.getObjectWithId(ID_MODIFY_SETTINGS);
+				if (checkbox.isChecked())
+					checkbox.click();
+				Utils.click(location);
+				sleep(1000);
+			}
+		} catch (UiObjectNotFoundException e) {
+			// Button is not there, no problem
+		}
+	}
+
 	private void checkoutStatus() {
 		sleep(1000);
 		assertTrue("Cannot click the checkout button",
 				Utils.click(ID_CHECKOUT_BUTTON));
 		sleep(1000);
+		removeGPSWarning();
 		assertTrue(
 				"Cannot select the first location",
 				Utils.click(new UiObject(new UiSelector().resourceId(
