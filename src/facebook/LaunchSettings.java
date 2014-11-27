@@ -35,7 +35,8 @@ public class LaunchSettings extends UiAutomatorTestCase {
 			Utils.click(backButton);
 			UiObject deleteText = Utils.getObjectWithText("Yes, Delete");
 			if (deleteText.exists()) {
-				assertTrue("Delete button diseappeared???",
+				Utils.customUtils.customAssertTrue(this, this,
+						"Delete button diseappeared???",
 						Utils.click(deleteText));
 			}
 			sleep(3000);
@@ -60,17 +61,22 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 	private void textStatus() {
 		removePrivacyWarning();
-		assertTrue("Cannot publish new status", Utils.click(ID_STATUS_BUTTON));
+		Utils.customUtils.customAssertTrue(this, this,
+				"Cannot publish new status",
+				Utils.click(ID_STATUS_BUTTON));
 
 		sleep(1000);
 		removePrivacyWarning();
 		Date now = new Date();
-		assertTrue("Cannot write my status",
+		Utils.customAssertTrue(
+				this,
+				"Cannot write my status",
 				Utils.setText(ID_STATUS_TEXT,
 						"This is a test status " + now.getTime()));
 
 		removePrivacyWarning();
-		assertTrue("Cannot post my status", Utils.click(ID_POST));
+		Utils.customAssertTrue(this, "Cannot post my status",
+				Utils.click(ID_POST));
 	}
 
 	/**
@@ -94,28 +100,33 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 	private void photoStatus() {
 		sleep(1000);
-		assertTrue("Cannot publish new photo", Utils.click(ID_PHOTO_BUTTON));
+		Utils.customAssertTrue(this, "Cannot publish new photo",
+				Utils.click(ID_PHOTO_BUTTON));
 		sleep(2000);
 		removePrivacyWarning();
 		removeLocationWarning();
-		assertTrue("Cannot take new photo", Utils.click(ID_TAKE_PHOTO));
+		Utils.customAssertTrue(this, "Cannot take new photo",
+				Utils.click(ID_TAKE_PHOTO));
 		sleep(2000);
 		removePrivacyWarning();
 		removeLocationWarning();
-		assertTrue("Cannot capture photo", Utils.click(ID_CAPTURE_PHOTO));
+		Utils.customAssertTrue(this, "Cannot capture photo",
+				Utils.click(ID_CAPTURE_PHOTO));
 		sleep(4000);
 		removePrivacyWarning();
 		if (!Utils.click(ID_ACCEPT_PHOTO)) // 2 possible buttons...
-			assertTrue("Cannot accept the photo",
+			Utils.customAssertTrue(this, "Cannot accept the photo",
 					Utils.click(ID_ACCEPT_PHOTO_2));
 		sleep(3000);
 		removePrivacyWarning();
 		Date now = new Date();
-		assertTrue(
+		Utils.customAssertTrue(
+				this,
 				"Cannot write my status",
 				Utils.setText(ID_STATUS_TEXT,
 						"This is a test photo " + now.getTime()));
-		assertTrue("Cannot post my status", Utils.click(ID_POST));
+		Utils.customAssertTrue(this, "Cannot post my status",
+				Utils.click(ID_POST));
 	}
 
 	/**
@@ -138,31 +149,36 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 	private void checkoutStatus() {
 		sleep(1000);
-		assertTrue("Cannot click the checkout button",
+		Utils.customAssertTrue(this, "Cannot click the checkout button",
 				Utils.click(ID_CHECKOUT_BUTTON));
 		sleep(1000);
 		removeGPSWarning();
-		assertTrue(
+		Utils.customAssertTrue(
+				this,
 				"Cannot select the first location",
 				Utils.click(new UiObject(new UiSelector().resourceId(
 						"android:id/list").childSelector(
 						new UiSelector().className(
 								"android.widget.RelativeLayout").instance(0)))));
 		sleep(1500);
-		assertTrue("Cannot choose my buddy :'(", Utils.click(new UiObject(
+		Utils.customAssertTrue(this, "Cannot choose my buddy :'(", Utils
+				.click(new UiObject(
 				new UiSelector().resourceId(ID_LIST_CHECK).childSelector(
 						new UiSelector().className("android.view.View")
 								.instance(3)))));
 		sleep(1000);
 		removePrivacyWarning();
-		assertTrue("Cannot post my status", Utils.click(ID_POST));
+		Utils.customAssertTrue(this, "Cannot post my status",
+				Utils.click(ID_POST));
 
 		Date now = new Date();
-		assertTrue(
+		Utils.customAssertTrue(
+				this,
 				"Cannot write my status",
 				Utils.setText(ID_STATUS_TEXT,
 						"This is a test checkout " + now.getTime()));
-		assertTrue("Cannot post my status", Utils.click(ID_POST));
+		Utils.customAssertTrue(this, "Cannot post my status",
+				Utils.click(ID_POST));
 		sleep(1000);
 		Utils.click(ID_DONE_BUTTON);
 	}
@@ -174,7 +190,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	}
 
 	public void testDemo() throws UiObjectNotFoundException {
-		assertTrue("OOOOOpps",
+		Utils.customAssertTrue(this, "OOOOOpps",
 				Utils.openApp(this, "Facebook", "com.facebook.katana"));
 		sleep(2000);
 
@@ -187,6 +203,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 			checkoutStatus();
 		}
 
+		Utils.returnToHomeScreen(this);
 	}
 
 }
