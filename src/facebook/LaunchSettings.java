@@ -35,7 +35,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 			Utils.click(backButton);
 			UiObject deleteText = Utils.getObjectWithText("Yes, Delete");
 			if (deleteText.exists()) {
-				Utils.customUtils.customAssertTrue(this, this,
+				Utils.customAssertTrue(this,
 						"Delete button diseappeared???",
 						Utils.click(deleteText));
 			}
@@ -61,7 +61,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 
 	private void textStatus() {
 		removePrivacyWarning();
-		Utils.customUtils.customAssertTrue(this, this,
+		Utils.customAssertTrue(this,
 				"Cannot publish new status",
 				Utils.click(ID_STATUS_BUTTON));
 
