@@ -27,7 +27,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_LOCATION_WARNING = "android:id/button2";
 	private static final String ID_MODIFY_SETTINGS = "com.facebook.katana:id/modify_settings_dont_ask_again";
 
-	private static final int NB_TIMES = 2;
+	private static final int NB_TIMES = 3;
 
 	private void returnToMainMenu() {
 		UiObject backButton = Utils.getObjectWithDescription("Back");
