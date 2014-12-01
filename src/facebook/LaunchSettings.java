@@ -32,8 +32,8 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private void returnToMainMenu() {
 		UiObject backButton = Utils.getObjectWithDescription("Back");
 		while (backButton.exists()) {
-			sleep(2000);
 			Utils.click(backButton);
+			sleep(2000);
 			UiObject deleteText = Utils.getObjectWithText("Yes, Delete");
 			if (deleteText.exists()) {
 				Utils.customAssertTrue(this,
