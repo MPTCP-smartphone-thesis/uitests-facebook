@@ -32,6 +32,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private void returnToMainMenu() {
 		UiObject backButton = Utils.getObjectWithDescription("Back");
 		while (backButton.exists()) {
+			sleep(1500);
 			Utils.click(backButton);
 			UiObject deleteText = Utils.getObjectWithText("Yes, Delete");
 			if (deleteText.exists()) {
@@ -39,7 +40,12 @@ public class LaunchSettings extends UiAutomatorTestCase {
 						"Delete button diseappeared???",
 						Utils.click(deleteText));
 			}
-			sleep(3000);
+			UiObject discardText = Utils.getObjectWithText("Discard");
+			if (discardText.exists()) {
+				Utils.customAssertTrue(this, "Delete button diseappeared???",
+						Utils.click(discardText));
+			}
+			sleep(1500);
 			backButton = Utils.getObjectWithDescription("Back");
 		}
 	}
