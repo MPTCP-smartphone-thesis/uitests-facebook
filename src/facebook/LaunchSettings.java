@@ -108,22 +108,22 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		sleep(1000);
 		Utils.customAssertTrue(this, "Cannot publish new photo",
 				Utils.click(ID_PHOTO_BUTTON));
-		sleep(2000);
+		sleep(1000);
 		removePrivacyWarning();
 		removeLocationWarning();
 		Utils.customAssertTrue(this, "Cannot take new photo",
 				Utils.click(ID_TAKE_PHOTO));
-		sleep(2000);
+		sleep(1000);
 		removePrivacyWarning();
 		removeLocationWarning();
 		Utils.customAssertTrue(this, "Cannot capture photo",
 				Utils.click(ID_CAPTURE_PHOTO));
-		sleep(4000);
+		sleep(2000);
 		removePrivacyWarning();
 		if (!Utils.click(ID_ACCEPT_PHOTO)) // 2 possible buttons...
 			Utils.customAssertTrue(this, "Cannot accept the photo",
 					Utils.click(ID_ACCEPT_PHOTO_2));
-		sleep(3000);
+		sleep(2000);
 		removePrivacyWarning();
 		Date now = new Date();
 		Utils.customAssertTrue(
@@ -192,7 +192,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private void updateFeed() {
 		sleep(1000);
 		Utils.scrollBackward(Utils.getScrollableWithId(ID_LIST_FEED));
-		sleep(3000);
+		sleep(1000);
 	}
 
 	public void testDemo() throws UiObjectNotFoundException {
