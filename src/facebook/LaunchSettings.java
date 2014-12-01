@@ -28,6 +28,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_MODIFY_SETTINGS = "com.facebook.katana:id/modify_settings_dont_ask_again";
 
 	private static final int NB_TIMES = 3;
+	private static boolean checkWarning = false;
 
 	private void returnToMainMenu() {
 		UiObject backButton = Utils.getObjectWithDescription("Back");
@@ -66,13 +67,17 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	}
 
 	private void textStatus() {
-		removePrivacyWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+		}
 		Utils.customAssertTrue(this,
 				"Cannot publish new status",
 				Utils.click(ID_STATUS_BUTTON));
 
 		sleep(1000);
-		removePrivacyWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+		}
 		Date now = new Date();
 		Utils.customAssertTrue(
 				this,
@@ -80,7 +85,9 @@ public class LaunchSettings extends UiAutomatorTestCase {
 				Utils.setText(ID_STATUS_TEXT,
 						"This is a test status " + now.getTime()));
 
-		removePrivacyWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+		}
 		Utils.customAssertTrue(this, "Cannot post my status",
 				Utils.click(ID_POST));
 	}
@@ -109,22 +116,30 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		Utils.customAssertTrue(this, "Cannot publish new photo",
 				Utils.click(ID_PHOTO_BUTTON));
 		sleep(1000);
-		removePrivacyWarning();
-		removeLocationWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+			removeLocationWarning();
+		}
 		Utils.customAssertTrue(this, "Cannot take new photo",
 				Utils.click(ID_TAKE_PHOTO));
 		sleep(1000);
-		removePrivacyWarning();
-		removeLocationWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+			removeLocationWarning();
+		}
 		Utils.customAssertTrue(this, "Cannot capture photo",
 				Utils.click(ID_CAPTURE_PHOTO));
 		sleep(2000);
-		removePrivacyWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+		}
 		if (!Utils.click(ID_ACCEPT_PHOTO)) // 2 possible buttons...
 			Utils.customAssertTrue(this, "Cannot accept the photo",
 					Utils.click(ID_ACCEPT_PHOTO_2));
 		sleep(2000);
-		removePrivacyWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+		}
 		Date now = new Date();
 		Utils.customAssertTrue(
 				this,
@@ -158,7 +173,9 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		Utils.customAssertTrue(this, "Cannot click the checkout button",
 				Utils.click(ID_CHECKOUT_BUTTON));
 		sleep(1000);
-		removeGPSWarning();
+		if (checkWarning) {
+			removeGPSWarning();
+		}
 		Utils.customAssertTrue(
 				this,
 				"Cannot select the first location",
@@ -173,7 +190,9 @@ public class LaunchSettings extends UiAutomatorTestCase {
 						new UiSelector().className("android.view.View")
 								.instance(3)))));
 		sleep(1000);
-		removePrivacyWarning();
+		if (checkWarning) {
+			removePrivacyWarning();
+		}
 		Utils.customAssertTrue(this, "Cannot post my status",
 				Utils.click(ID_POST));
 
@@ -199,6 +218,11 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		Utils.customAssertTrue(this, "OOOOOpps",
 				Utils.openApp(this, "Facebook", "com.facebook.katana"));
 		sleep(2000);
+
+		String checkValue = getParams().getString("check");
+		if (checkValue != null) {
+			checkWarning = true;
+		}
 
 		returnToMainMenu();
 
