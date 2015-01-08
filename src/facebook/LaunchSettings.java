@@ -27,7 +27,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	private static final String ID_LOCATION_WARNING = "android:id/button2";
 	private static final String ID_MODIFY_SETTINGS = "com.facebook.katana:id/modify_settings_dont_ask_again";
 
-	private static final int NB_TIMES = 3;
+	private static int NB_TIMES = 3;
 	private static boolean checkWarning = false;
 
 	private void returnToMainMenu() {
@@ -217,6 +217,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 	public void testDemo() throws UiObjectNotFoundException {
 		Utils.customAssertTrue(this, "OOOOOpps",
 				Utils.openApp(this, "Facebook", "com.facebook.katana"));
+		NB_TIMES = Math.max(1, (int) (NB_TIMES * Utils.getMultTime(this)));
 		sleep(2000);
 
 		String checkValue = getParams().getString("check");
