@@ -129,7 +129,7 @@ public class LaunchSettings extends UiAutomatorTestCase {
 		}
 		Utils.customAssertTrue(this, "Cannot capture photo",
 				Utils.click(ID_CAPTURE_PHOTO));
-		sleep(2000);
+		sleep(5000);
 		if (checkWarning) {
 			removePrivacyWarning();
 		}
